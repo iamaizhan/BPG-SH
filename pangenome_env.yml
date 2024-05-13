@@ -1,0 +1,19 @@
+name: pangenome_env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.11
+  - biopython=1.78
+  - pandas
+  - numpy
+  - scipy
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - networkx
+  - plotly
+  - pysam
+  - ete3
+  - cd-hit
