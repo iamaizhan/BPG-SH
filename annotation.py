@@ -32,3 +32,14 @@ def run_prokka(fasta_path, output_dir):
         logging.info(f"Prokka úspěšně dokončil anotaci pro {fasta_path}")
     else:
         logging.error(f"Prokka se nepodařilo anotovat {fasta_path}: {result.stderr}")
+
+def process_genomes(genomes, output_dir):
+    for genome_id, record in genomes.items():
+        run_prokka(record, genome_id, output_dir)
+
+if __name__ == "__main__":
+    input_dir = '/cesta/k/e.coli' 
+    output_dir = '/cesta/k/výstupní/složce/gff'
+    
+    genomes = load_genomes(input_dir)
+    process_genomes(genomes, output_dir)
