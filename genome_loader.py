@@ -21,5 +21,6 @@ def load_genomes(directory_path):
         print(f"Došlo k neočekávané chybě: {e}")
     return genome_dict
 
-path_to_genomes = '/Users/aijan/Desktop/MAIN PIPELINE/e.coli'
-load_genomes(path_to_genomes)
+if __name__ == "__main__":
+    path_to_genomes = '/cesta/k/e.coli' # Cesta do .fasta souborů
+    load_genomes(path_to_genomes)
