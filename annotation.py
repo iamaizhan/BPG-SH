@@ -2,7 +2,6 @@ import os
 import subprocess
 import logging
 import multiprocessing
-import shutil
 from genome_loader import load_genomes
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -10,8 +9,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def run_prokka(fasta_path, output_dir):
     base_name = os.path.basename(fasta_path).rsplit('.', 1)[0]
     prokka_output_dir = os.path.join(output_dir, base_name)
-    if not os.path.exists(prokka_output_dir):
-        os.makedirs(prokka_output_dir)
+    os.makedirs(prokka_output_dir, exist_ok=True)
 
     # Kontrola počtu dostupných procesorů
     num_cores = multiprocessing.cpu_count()
@@ -34,4 +32,3 @@ def run_prokka(fasta_path, output_dir):
         logging.info(f"Prokka úspěšně dokončil anotaci pro {fasta_path}")
     else:
         logging.error(f"Prokka se nepodařilo anotovat {fasta_path}: {result.stderr}")
-
