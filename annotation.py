@@ -33,13 +33,21 @@ def run_prokka(fasta_path, output_dir):
     else:
         logging.error(f"Prokka se nepodařilo anotovat {fasta_path}: {result.stderr}")
 
-def process_genomes(genomes, output_dir):
+def process_fasta(input_dir, output_dir):
+    genomes = load_genomes(input_dir)
+    
     for genome_id, record in genomes.items():
-        run_prokka(record, genome_id, output_dir)
+        fasta_path = os.path.join(input_dir, f"{genome_id}.fasta")
+        if not os.path.isfile(fasta_path):
+            logging.error(f"Soubor {fasta_path} neexistuje.")
+            continue
+        if os.path.getsize(fasta_path) == 0:
+            logging.error(f"Soubor {fasta_path} je prázdný.")
+            continue
+        
+        run_prokka(fasta_path, output_dir)
 
 if __name__ == "__main__":
-    input_dir = '/cesta/k/e.coli' 
-    output_dir = '/cesta/k/výstupní/složce/gff'
-    
-    genomes = load_genomes(input_dir)
-    process_genomes(genomes, output_dir)
+    input_dir = '/cesta_k_genomu/' 
+    output_dir = '/cesta_k_výstupní_složce_gff/'
+    process_fasta(input_dir, output_dir)
