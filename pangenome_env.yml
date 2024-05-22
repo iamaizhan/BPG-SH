@@ -8,12 +8,10 @@ dependencies:
   - biopython=1.78
   - pandas
   - numpy
-  - scipy
   - matplotlib
   - seaborn
-  - scikit-learn
-  - networkx
   - plotly
   - pysam
   - ete3
   - cd-hit
+  - bioperl
