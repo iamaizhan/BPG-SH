@@ -22,5 +22,5 @@ def load_genomes(directory_path):
     return genome_dict
 
 if __name__ == "__main__":
-    path_to_genomes = '/cesta/k/e.coli' # Cesta do .fasta souborů
+    path_to_genomes = '/cesta_k_genomu/'
     load_genomes(path_to_genomes)
