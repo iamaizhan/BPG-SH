@@ -1,7 +1,5 @@
 import os
 from Bio import SeqIO
-from Bio.Seq import Seq
-from Bio.SeqRecord import SeqRecord
 
 def load_genomes(directory_path):
     genome_dict = {}
