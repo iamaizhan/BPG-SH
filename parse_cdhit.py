@@ -47,8 +47,8 @@ def create_presence_absence_matrix(parsed_clusters):
     return presence_absence_matrix_df
 
 def main():
-    clstr_directory = '/Users/aijan/Desktop/FINAL PIPELINE/clstr'
-    output_file = '/Users/aijan/Desktop/FINAL PIPELINE/gene_presence_absence.csv'
+    clstr_directory = '/cesta_k/clstr'
+    output_file = '/cesta_k_vystupni_slozce/gene_presence_absence.csv'
 
     parsed_clusters = parse_multiple_cd_hit_clstr(clstr_directory)
     print(f"Parsované {len(parsed_clusters)} genomů ze souborů klastrů CD-HIT.")
