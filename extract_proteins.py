@@ -77,8 +77,8 @@ def process_gffs_and_genomes(gff_directory, genome_directory, output_directory):
 
 
 if __name__ == "__main__":
-    gff_directory = '/Users/aijan/Desktop/FINAL PIPELINE/roary/gffs'
-    genome_directory = '/Users/aijan/Desktop/MAIN PIPELINE/e.coli'
-    output_directory = '/Users/aijan/Desktop/FINAL PIPELINE/proteins'
+    gff_directory = '/cesta_k_gffs'
+    genome_directory = '/cesta_k_genomu'
+    output_directory = '/cesta_k_vystupni_slozce/proteins'
     
     process_gffs_and_genomes(gff_directory, genome_directory, output_directory)
