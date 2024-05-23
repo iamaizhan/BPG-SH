@@ -33,6 +33,6 @@ def cluster_all_fastas(fasta_dir, output_dir, identity=0.95, coverage=0.99):
         run_cd_hit(fasta_file, output_dir, identity, coverage)
 
 if __name__ == "__main__":
-    input_fasta_dir = '/cesta_k_proteinum/'
+    input_fasta_dir = '/cesta_k/proteins'
     output_dir = '/cesta_k_vystupni_slozce/clstr'
     cluster_all_fastas(input_fasta_dir, output_dir)
