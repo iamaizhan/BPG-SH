@@ -26,7 +26,7 @@ def save_genes_to_file(genes, filepath):
         print(f"Chyba při ukládání genů do {filepath}: {e}")
 
 def main():
-    input_file = '/Users/aijan/Desktop/FINAL PIPELINE/gene_presence_absence.csv'
+    input_file = '/cesta_k/gene_presence_absence.csv'
     try:
         presence_absence_matrix = pd.read_csv(input_file, index_col=0)
     except Exception as e:
@@ -38,9 +38,9 @@ def main():
     print(f"Postradatelné Geny: {len(accessory_genes)}")
     print(f"Jedinečné Geny: {len(unique_genes)}")
     
-    save_genes_to_file(core_genes, '/Users/aijan/Desktop/FINAL PIPELINE/core_genes.txt')
-    save_genes_to_file(accessory_genes, '/Users/aijan/Desktop/FINAL PIPELINE/accessory_genes.txt')
-    save_genes_to_file(unique_genes, '/Users/aijan/Desktop/FINAL PIPELINE/unique_genes.txt')
+    save_genes_to_file(core_genes, '/cesta_k_vystupni_slozce/core_genes.txt')
+    save_genes_to_file(accessory_genes, '/cesta_k_vystupni_slozce/accessory_genes.txt')
+    save_genes_to_file(unique_genes, '/cesta_k_vystupni_slozce/unique_genes.txt')
 
 if __name__ == "__main__":
     main()
