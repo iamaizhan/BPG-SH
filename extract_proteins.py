@@ -75,10 +75,12 @@ def process_gffs_and_genomes(gff_directory, genome_directory, output_directory):
             else:
                 logging.error(f"Nebyla nalezena žádná sekvence genomu {genome_id}")
 
-
-if __name__ == "__main__":
+def main():
     gff_directory = '/cesta_k/roary/gff'
     genome_directory = '/cesta_k_genomu'
     output_directory = '/cesta_k_vystupni_slozce/proteins'
     
     process_gffs_and_genomes(gff_directory, genome_directory, output_directory)
+
+if __name__ == "__main__":
+    main()
