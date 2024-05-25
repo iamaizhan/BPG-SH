@@ -77,7 +77,7 @@ def process_gffs_and_genomes(gff_directory, genome_directory, output_directory):
 
 
 if __name__ == "__main__":
-    gff_directory = '/cesta_k_gffs'
+    gff_directory = '/cesta_k/roary/gff'
     genome_directory = '/cesta_k_genomu'
     output_directory = '/cesta_k_vystupni_slozce/proteins'
     
