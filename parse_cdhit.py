@@ -2,6 +2,8 @@ import os
 import pandas as pd
 from collections import defaultdict
 import csv
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 def parse_cd_hit_clstr(clstr_file_path):
     clusters = {}
@@ -46,6 +48,20 @@ def create_presence_absence_matrix(parsed_clusters):
     presence_absence_matrix_df.rename(columns={'index': 'Gene'}, inplace=True)
     return presence_absence_matrix_df
 
+def heatmap(input_file, output_image):
+    presence_absence_matrix = pd.read_csv(input_file, index_col=0)
+    
+    presence_absence_matrix = presence_absence_matrix.loc[presence_absence_matrix.sum(axis=1).sort_values(ascending=False).index]
+    presence_absence_matrix = presence_absence_matrix[presence_absence_matrix.sum().sort_values(ascending=True).index]
+
+    plt.figure(figsize=(15, 10))
+    sns.heatmap(presence_absence_matrix, cmap="viridis", cbar=False)
+    plt.title('Mapa přítomnosti/absence genů')
+    plt.xlabel('Genomy')
+    plt.ylabel('Geny')
+    plt.savefig(output_image)
+    plt.show()
+
 def main():
     clstr_directory = '/cesta_k/clstr'
     output_file = '/cesta_k_vystupni_slozce/gene_presence_absence.csv'
@@ -58,5 +74,6 @@ def main():
     presence_absence_matrix_df.to_csv(output_file, index=False)
     print("Matrice přítomnosti/nepřítomnosti genů byla úspěšně uložena.")
 
+    heatmap(output_file, heatmap_output)
 if __name__ == "__main__":
     main()
