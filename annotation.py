@@ -49,5 +49,5 @@ def process_fasta(input_dir, output_dir):
 
 if __name__ == "__main__":
     input_dir = '/cesta_k_genomu/' 
-    output_dir = '/cesta_k_výstupní_složce_gff/'
+    output_dir = '/cesta_k_výstupní_složce/roary'
     process_fasta(input_dir, output_dir)
