@@ -47,7 +47,10 @@ def process_fasta(input_dir, output_dir):
         
         run_prokka(fasta_path, output_dir)
 
-if __name__ == "__main__":
+def main():
     input_dir = '/cesta_k_genomu/' 
     output_dir = '/cesta_k_výstupní_složce/roary'
     process_fasta(input_dir, output_dir)
+
+if __name__ == "__main__":
+    main()
