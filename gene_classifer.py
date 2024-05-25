@@ -1,7 +1,9 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def classify_genes(presence_absence_matrix):
     total_genomes = presence_absence_matrix.shape[1]
+    
     core_genes = []
     accessory_genes = []
     unique_genes = []
@@ -26,7 +28,7 @@ def save_genes_to_file(genes, filepath):
         print(f"Chyba při ukládání genů do {filepath}: {e}")
 
 def main():
-    input_file = '/cesta_k/gene_presence_absence.csv'
+    input_file = '/cesta_k/output/gene_presence_absence.csv'
     try:
         presence_absence_matrix = pd.read_csv(input_file, index_col=0)
     except Exception as e:
@@ -38,9 +40,22 @@ def main():
     print(f"Postradatelné Geny: {len(accessory_genes)}")
     print(f"Jedinečné Geny: {len(unique_genes)}")
     
-    save_genes_to_file(core_genes, '/cesta_k_vystupni_slozce/core_genes.txt')
-    save_genes_to_file(accessory_genes, '/cesta_k_vystupni_slozce/accessory_genes.txt')
-    save_genes_to_file(unique_genes, '/cesta_k_vystupni_slozce/unique_genes.txt')
+    save_genes_to_file(core_genes, '/cesta_k_vystupni_slozce/output/core_genes.txt')
+    save_genes_to_file(accessory_genes, '/cesta_k_vystupni_slozce/output/accessory_genes.txt')
+    save_genes_to_file(unique_genes, '/cesta_k_vystupni_slozce/output/unique_genes.txt')
+
+    labels = ['Core Geny', 'Postradatelné Geny', 'Jedinečné Geny']
+    sizes = [len(core_genes), len(accessory_genes), len(unique_genes)]
+    colors = ['gold', 'lightcoral', 'lightskyblue']
+    explode = (0.1, 0, 0)
+    
+    plt.figure(figsize=(10, 8))
+    plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%',
+            shadow=True, startangle=140)
+    plt.axis('equal')  
+    plt.title('Distribuce Core, Postradatelých a Jedinečných Genů')
+    plt.savefig('gene_classification_pie_chart.png')
+    plt.show()
 
 if __name__ == "__main__":
     main()
