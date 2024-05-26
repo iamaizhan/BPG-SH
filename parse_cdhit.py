@@ -1,11 +1,19 @@
 import os
 import pandas as pd
-from collections import defaultdict
 import csv
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 def parse_cd_hit_clstr(clstr_file_path):
+    """
+    Analyzuje soubor CD-HIT .clstr a extrahuje klastry.
+
+    Parametry:
+    clstr_file_path (str): Cesta k souboru CD-HIT .clstr.
+
+    Vrátí:
+    dict: Parsované clustery.
+    """
     clusters = {}
     cluster_id = None
     with open(clstr_file_path, 'r') as file:
@@ -19,6 +27,15 @@ def parse_cd_hit_clstr(clstr_file_path):
     return clusters
 
 def parse_multiple_cd_hit_clstr(clstr_directory):
+    """
+    Zpracuje více souborů CD-HIT .clstr z adresáře.
+
+    Parametry:
+    clstr_directory (str): Adresář obsahující soubory CD-HIT .clstr.
+
+    Vrátí:
+    dict: Parsované klastry pro všechny genomy.
+    """
     all_clusters = {}
     for filename in os.listdir(clstr_directory):
         if filename.endswith('.clstr'):
@@ -28,6 +45,15 @@ def parse_multiple_cd_hit_clstr(clstr_directory):
     return all_clusters
 
 def create_presence_absence_matrix(parsed_clusters):
+    """
+    Vytvoří matici přítomnosti/absence z analyzovaných shluků CD-HIT.
+
+    Parametry:
+    parsed_clusters (dict): Parsované shluky ze souborů CD-HIT .clstr.
+
+    Vrátí:
+    DataFrame: Matice přítomnosti/absence.
+    """
     all_gene_names = set()
     for genome, clusters in parsed_clusters.items():
         for genes in clusters.values():
@@ -35,7 +61,9 @@ def create_presence_absence_matrix(parsed_clusters):
     
     genomes = list(parsed_clusters.keys())
     
-    presence_absence_matrix = {gene: [0] * len(genomes) for gene in all_gene_names}
+    presence_absence_matrix = {}
+    for gene in all_gene_names:
+        presence_absence_matrix[gene] = [0] * len(genomes)
     
     for genome_index, genome in enumerate(genomes):
         clusters = parsed_clusters[genome]
@@ -49,6 +77,13 @@ def create_presence_absence_matrix(parsed_clusters):
     return presence_absence_matrix_df
 
 def heatmap(input_file, output_image):
+    """
+    Vykreslí setříděnou heatmapu matice přítomnosti/absence
+
+    Parametry:
+    input_file (str): Cesta k souboru CSV obsahujícímu matici přítomnosti/absence.
+    output_image (str): Cesta k uložení výstupního obrázku heatmapy.
+    """
     presence_absence_matrix = pd.read_csv(input_file, index_col=0)
     
     presence_absence_matrix = presence_absence_matrix.loc[presence_absence_matrix.sum(axis=1).sort_values(ascending=False).index]
@@ -63,8 +98,11 @@ def heatmap(input_file, output_image):
     plt.show()
 
 def main():
-    clstr_directory = '/cesta_k/clstr'
-    output_file = '/cesta_k_vystupni_slozce/output/gene_presence_absence.csv'
+    """
+    Hlavní funkce pro zpracování shluků CD-HIT a vykreslení tepelné mapy přítomnosti/absence.
+    """
+    clstr_directory = '/cesta/k/souborům/clstr'
+    output_file = '/cesta/do/output/gene_presence_absence.csv'
 
     parsed_clusters = parse_multiple_cd_hit_clstr(clstr_directory)
     print(f"Parsované {len(parsed_clusters)} genomů ze souborů klastrů CD-HIT.")
@@ -75,5 +113,6 @@ def main():
     print("Matrice přítomnosti/nepřítomnosti genů byla úspěšně uložena.")
 
     heatmap(output_file, heatmap_output)
+    
 if __name__ == "__main__":
     main()
