@@ -15,7 +15,9 @@ def load_core_genes(core_genes_file):
     list: Seznam core genů.
     """
     with open(core_genes_file, 'r') as file:
-        core_genes = [line.strip() for line in file]
+        core_genes = []
+        for line in file:
+            core_genes.append(line.strip())
     print(f"Načteny core geny: {core_genes}")
     return core_genes
 
@@ -65,7 +67,7 @@ def concatenate_core_genes(core_genes, gff_directory, fasta_directory, output_fi
                 print(f"Zpracování genomu {genome_id}")
                 sequences = extract_core_sequences(gff_path, fasta_path, core_genes)
                 if sequences:
-                    print(f"Nalezená sekvence pro genom {genome_id}")
+                    print(f"Nalezena sekvence pro genom {genome_id}")
                 for gene in core_genes:
                     if gene in sequences:
                         concatenated_seq += sequences[gene]
@@ -103,7 +105,7 @@ def plot_tree(tree_file):
     Načte strom z Newick souboru a vykreslí ho.
 
     Parametry:
-    strom_soubor (str): Cesta k souboru stromu ve formátu Newick.
+    strom_soubor (str): Cesta k Newick souboru.
     """
     tree = Tree(tree_file)
 
@@ -130,13 +132,13 @@ def main():
     """
     Hlavní funkce pro spuštění celého pipeline na konstrukci fylogenetického stromu core genomů.
     """
-    gff_directory = '/Users/aijan/Desktop/PIPELINE/roary/gffs'
-    fasta_directory = '/Users/aijan/Desktop/MAIN PIPELINE/e.coli'
-    core_genes_file = '/Users/aijan/Desktop/PIPELINE/output/core_genes.txt'
-    concatenated_fasta = '/Users/aijan/Desktop/PIPELINE/output/concatenated_core_genes.fasta'
-    aligned_fasta = '/Users/aijan/Desktop/PIPELINE/output/aligned_core_genes.fasta'
-    output_tree = '/Users/aijan/Desktop/PIPELINE/output/core_pangenome_tree.newick'
-    tree_file = "/Users/aijan/Desktop/PIPELINE/output/core_pangenome_tree.newick"
+    gff_directory = '/cesta/k/souborům/roary/gffs'
+    fasta_directory = '/cesta/k/fasta/souborům/'
+    core_genes_file = '/cesta/k/souborům/output/core_genes.txt'
+    concatenated_fasta = '/cesta/k/souborům/output/concatenated_core_genes.fasta'
+    aligned_fasta = '/cesta/k/souborům/output/aligned_core_genes.fasta'
+    output_tree = '/cesta/k/souborům/output/core_pangenome_tree.newick'
+    tree_file = "/cesta/k/souborům/output/core_pangenome_tree.newick"
 
     core_genes = load_core_genes(core_genes_file)
     concatenate_core_genes(core_genes, gff_directory, fasta_directory, concatenated_fasta)
