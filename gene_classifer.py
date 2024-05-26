@@ -2,6 +2,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def classify_genes(presence_absence_matrix):
+    """
+    Klasifikuje geny na základě matice přítomnosti/absence.
+
+    Parametry:
+    presence_absence_matrix_file (str): Matice přítomnosti/absence.
+
+    Vrátí:
+    listy: Seznamy klasifikovaných genů na core, postradatelné a jedinečné.
+    """
     total_genomes = presence_absence_matrix.shape[1]
     
     core_genes = []
@@ -20,6 +29,13 @@ def classify_genes(presence_absence_matrix):
     return core_genes, accessory_genes, unique_genes
 
 def save_genes_to_file(genes, filepath):
+    """
+    Uloží klasifikované geny do souboru.
+
+    Parametry:
+    genes (list): Seznam genů k uložení.
+    filepath (str): Cesta k výstupnímu souboru.
+    """
     try:
         with open(filepath, 'w') as f:
             f.write("\n".join(genes))
@@ -28,7 +44,10 @@ def save_genes_to_file(genes, filepath):
         print(f"Chyba při ukládání genů do {filepath}: {e}")
 
 def main():
-    input_file = '/cesta_k/output/gene_presence_absence.csv'
+    """
+    Hlavní funkce pro klasifikaci genů, uložení výsledků a vykreslení rozložení genů.
+    """
+    input_file = '/cesta/k/output/gene_presence_absence.csv'
     try:
         presence_absence_matrix = pd.read_csv(input_file, index_col=0)
     except Exception as e:
@@ -40,10 +59,11 @@ def main():
     print(f"Postradatelné Geny: {len(accessory_genes)}")
     print(f"Jedinečné Geny: {len(unique_genes)}")
     
-    save_genes_to_file(core_genes, '/cesta_k_vystupni_slozce/output/core_genes.txt')
-    save_genes_to_file(accessory_genes, '/cesta_k_vystupni_slozce/output/accessory_genes.txt')
-    save_genes_to_file(unique_genes, '/cesta_k_vystupni_slozce/output/unique_genes.txt')
+    save_genes_to_file(core_genes, '/cesta/do/output/core_genes.txt')
+    save_genes_to_file(accessory_genes, '/cesta/do/output/accessory_genes.txt')
+    save_genes_to_file(unique_genes, '/cesta/do/output/unique_genes.txt')
 
+    # Koláčový graf
     labels = ['Core Geny', 'Postradatelné Geny', 'Jedinečné Geny']
     sizes = [len(core_genes), len(accessory_genes), len(unique_genes)]
     colors = ['gold', 'lightcoral', 'lightskyblue']
