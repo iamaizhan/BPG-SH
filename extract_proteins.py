@@ -10,6 +10,16 @@ from genome_loader import load_genomes
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def extract_cds_from_gff(gff_file, genome_sequence):
+    """
+    Extrahuje proteinové sekvence ze souboru GFF a zapíše je do souboru FASTA.
+
+    Parametry:
+    gff_file (str): Cesta ke vstupnímu GFF souboru.
+    genome_sequence (str): Cesta k výstupnímu FASTA souboru.
+
+    Vratí:
+    list: Seznam SeqRecords obsahující proteinové sekvence.
+    """
     proteins = []
     try:
         with open(gff_file, 'r') as gff_handle:
@@ -27,7 +37,24 @@ def extract_cds_from_gff(gff_file, genome_sequence):
     return proteins
 
 def parse_protein_info(start, end, strand, attributes, genome_sequence):
-    attributes_dict = {attr.split('=')[0]: attr.split('=')[1] for attr in attributes.split(';') if '=' in attr}
+    """
+    Vypíše informace o proteinech z atributů GFF a sekvence genomu.
+
+    Parametry:
+    start (str): Počáteční pozice CDS.
+    end (str): Koncová pozice CDS.
+    strand (str): Informace o vlákně ("+" nebo "-").
+    attributes (str): Řetězec atributů ze souboru GFF.
+    genome_sequence (SeqRecord): Záznam sekvence genomu.
+
+    Vrátí:
+    SeqRecord: SeqRecord přeložené sekvence proteinu.
+    """
+    attributes_dict = {}
+    for attr in attributes.split(';'):
+        if '=' in attr:
+            key, value = attr.split('=')
+            attributes_dict[key] = value
     protein_id = attributes_dict.get('ID', 'unknown_protein')
     gene_name = attributes_dict.get('gene', 'unknown_gene')
     product = attributes_dict.get('product', 'unknown_product')
@@ -37,7 +64,6 @@ def parse_protein_info(start, end, strand, attributes, genome_sequence):
         nuc_seq = genome_sequence.seq[start:end]
     else:
         nuc_seq = genome_sequence.seq[start:end].reverse_complement()
-    
     try:
         protein_seq = nuc_seq.translate(to_stop=True)
         if not protein_seq:
@@ -48,7 +74,17 @@ def parse_protein_info(start, end, strand, attributes, genome_sequence):
         return None
 
 def save_proteins_to_fasta(proteins, output_file):
-    valid_proteins = [p for p in proteins if p is not None]
+    """
+    Uloží proteinové sekvence do FASTA souboru.
+
+    Parametry:
+    proteins (list): Seznam SeqRecords obsahující proteinové sekvence.
+    output_file (str): Cesta k výstupnímu souboru 
+    """
+    valid_proteins = []
+    for p in proteins:
+        if p is not None:
+            valid_proteins.append(p)
     if not valid_proteins:
         logging.warning(f"Nebyly nalezeny žádné validní proteiny. Přeskočení souboru {output_file}.")
         return
@@ -59,6 +95,14 @@ def save_proteins_to_fasta(proteins, output_file):
         logging.error(f"Nepodařilo se zapsat proteiny do {output_file}: {e}")
 
 def process_gffs_and_genomes(gff_directory, genome_directory, output_directory):
+    """
+    Zpracuje všechny soubory GFF ve vstupním adresáři za účelem extrakce proteinů a uloží je do souborů FASTA.
+    
+    Parametry:
+    gff_directory (str): Adresář obsahující vstupní GFF soubory.
+    genome_directory (str): Adresář obsahující sekvence genomu.
+    output_directory (str): Adresář pro uložení výstupních FASTA souborů.
+    """
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
     
@@ -76,9 +120,12 @@ def process_gffs_and_genomes(gff_directory, genome_directory, output_directory):
                 logging.error(f"Nebyla nalezena žádná sekvence genomu {genome_id}")
 
 def main():
-    gff_directory = '/cesta_k/roary/gff'
-    genome_directory = '/cesta_k_genomu'
-    output_directory = '/cesta_k_vystupni_slozce/proteins'
+    """
+    Hlavní funkce pro zpracování souborů GFF a sekvencí genomu, extrakci proteinů a jejich uložení do FASTA souborů.
+    """
+    gff_directory = '/cesta/k/souborům/roary/gff'
+    genome_directory = '/cesta/k/fasta/souborům'
+    output_directory = '/cesta/do/výstupního/souboru/proteins'
     
     process_gffs_and_genomes(gff_directory, genome_directory, output_directory)
 
