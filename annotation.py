@@ -7,6 +7,13 @@ from genome_loader import load_genomes
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def run_prokka(fasta_path, output_dir):
+    """
+    Spustí Prokku k anotaci genomu.
+
+    Parametry:
+    fasta_path (str): Cesta ke vstupnímu souboru FASTA.
+    output_dir (str): Adresář pro uložení výstupu Prokka.
+    """
     base_name = os.path.basename(fasta_path).rsplit('.', 1)[0]
     prokka_output_dir = os.path.join(output_dir, base_name)
     os.makedirs(prokka_output_dir, exist_ok=True)
@@ -34,6 +41,13 @@ def run_prokka(fasta_path, output_dir):
         logging.error(f"Prokka se nepodařilo anotovat {fasta_path}: {result.stderr}")
 
 def process_fasta(input_dir, output_dir):
+    """
+    Zpracuje všechny soubory FASTA ve vstupním adresáři pomocí programu Prokka.
+
+    Parametry:
+    input_dir (str): Adresář obsahující vstupní soubory FASTA.
+    output_dir (str): Adresář pro uložení výstupů Prokka.
+    """
     genomes = load_genomes(input_dir)
     
     for genome_id, record in genomes.items():
@@ -48,8 +62,11 @@ def process_fasta(input_dir, output_dir):
         run_prokka(fasta_path, output_dir)
 
 def main():
-    input_dir = '/cesta_k_genomu/' 
-    output_dir = '/cesta_k_výstupní_složce/roary'
+    """
+    Hlavní funkce pro zpracování FASTA souborů a anotaci genomů pomocí Prokka.
+    """
+    input_dir = 'cesta/k/fasta/souborům' 
+    output_dir = 'cesta/do/výstupního/souboru/roary'
     process_fasta(input_dir, output_dir)
 
 if __name__ == "__main__":
