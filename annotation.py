@@ -67,7 +67,11 @@ def main():
     """
     input_dir = 'cesta/k/fasta/souborům' 
     output_dir = 'cesta/do/výstupního/souboru/roary'
+    
     process_fasta(input_dir, output_dir)
+
+if __name__ == "__main__":
+    main()
 
 if __name__ == "__main__":
     main()
