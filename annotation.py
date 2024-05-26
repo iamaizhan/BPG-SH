@@ -65,8 +65,8 @@ def main():
     """
     Hlavní funkce pro zpracování FASTA souborů a anotaci genomů pomocí Prokka.
     """
-    input_dir = 'cesta/k/fasta/souborům' 
-    output_dir = 'cesta/do/výstupního/souboru/roary'
+    input_dir = '/cesta/k/fasta/souborům' 
+    output_dir = '/cesta/do/výstupního/souboru/roary'
     
     process_fasta(input_dir, output_dir)
 
