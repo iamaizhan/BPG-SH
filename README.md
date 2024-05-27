@@ -2,7 +2,7 @@
 
 ## Description
 
-BPG-SH is a bioinformatics pipeline designed to construct pan-genomes and analyze sequence homology. The pipeline involves several steps, from environment setup to gene classification, utilizing various tools and scripts for genome annotation, clustering, and analysis.
+BPG-SH is a bioinformatics pipeline designed to construct pan-genomes and analyze sequence homology. The pipeline involves several steps, from environment setup to gene classification, utilizing various tools and scripts for genome annotation, clustering, and creates phylogenetic trees for evolutionary analysis. 
 
 **System Architecture**:
 - `genome_loader.py`: Loads genome data.
