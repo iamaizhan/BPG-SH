@@ -4,6 +4,31 @@
 
 BPG-SH is a bioinformatics pipeline designed to construct pan-genomes and analyze sequence homology. The pipeline involves several steps, from environment setup to gene classification, utilizing various tools and scripts for genome annotation, clustering, and analysis.
 
+**System Architecture**:
+- `genome_loader.py`: Loads genome data.
+- `annotation.py`: Annotates genome data.
+- `extract_proteins.py`: Extracts protein sequences.
+- `cdhit_clustering.py`: Performs clustering using CD-HIT.
+- `parse_cdhit.py`: Parses CD-HIT results.
+- `gene_classifier.py`: Classifies genes.
+- `core_phylogenetic_tree.py`: Creates phylogenetic trees.
+
+## Requirements
+
+**Hardware**: A powerful processor and sufficient RAM (recommended at least 16 GB).
+
+**Software**: 
+- **Operating System**: Linux/Windows/MacOS
+- **Dependencies**: Defined in `pangenome_env.yml`.
+
+## Installation and Setup
+
+1. Install Anaconda or Miniconda.
+2. Create and activate the environment:
+   ```bash
+   conda env create -f pangenome_env.yml
+   conda activate pangenome_env
+
 ## Pipeline Steps
 
 ### 1. Activate the Conda Environment
