@@ -76,8 +76,7 @@ Classify genes into core, dispensable, and unique categories using the `gene_cla
 ```bash
 python gene_classifier.py
 ```
-### Step 8: Gene Classification
-Create Phylogenetic Trees
+### Step 8: Create Phylogenetic Trees
 Generate phylogenetic trees to analyze the evolutionary relationships between the genes using the `core_phylogenetic_tree.py` script.
 ```bash
 python core_phylogenetic_tree.py
