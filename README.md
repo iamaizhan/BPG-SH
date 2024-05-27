@@ -31,28 +31,21 @@ BPG-SH is a bioinformatics pipeline designed to construct pan-genomes and analyz
 
 ## Pipeline Steps
 
-### 1. Activate the Conda Environment
+The following steps outline the pipeline for assembling pan-genomes based on sequence homology:
 
-First, you need to activate the Conda environment specified in the `pangenome_env.yml` file. This environment includes all the necessary dependencies for running the pipeline.
-
-```bash
-conda env create -f pangenome_env.yml
-conda activate pangenome_env
-```
-
-### 2. Load Genomes
-The `genome_loader.py` script is used to load genomes. This script will be referenced by other scripts throughout the pipeline.
+### Step 1: Load Genome Data
+The `genome_loader.py` script is used to load genomes in FASTA formats. This script will be referenced by other scripts throughout the pipeline.
 
 ```bash
 python genome_loader.py
 ```
-### 3. Structural Annotation
+### Step 2: Structural Annotation
 Use the `annotation.py` script to perform genome annotation with Prokka.
 
 ```bash
 python annotation.py
 ```
-### 3.1: Move GFF Files
+### Step 3: Move GFF Files
 After running Prokka, manually move the generated GFF files to the gff directory.
 
 ```bash
@@ -66,13 +59,13 @@ Extract proteins from the GFF files using the `extract_proteins.py` script.
 python extract_proteins.py
 ```
 ### Step 5: CD-HIT Clustering
-Cluster the extracted proteins using CD-HIT through the `cdhit_clustering.py` script.
+Cluster the extracted proteins using CD-HIT through the `cdhit_clustering.py` script. Clustering helps group similar sequences together.
 
 ```bash
 python cdhit_clustering.py
 ```
 ### Step 6: Parse CD-HIT Results
-Parse the results from the CD-HIT clustering using the `parse_cdhit.py` script.
+Parse the results from the CD-HIT clustering using the `parse_cdhit.py` script to make the data usable for subsequent steps.
 
 ```bash
 python parse_cdhit.py
@@ -83,3 +76,10 @@ Classify genes into core, dispensable, and unique categories using the `gene_cla
 ```bash
 python gene_classifier.py
 ```
+### Step 8: Gene Classification
+Create Phylogenetic Trees
+Generate phylogenetic trees to analyze the evolutionary relationships between the genes using the `core_phylogenetic_tree.py` script.
+```bash
+python core_phylogenetic_tree.py
+```
+
