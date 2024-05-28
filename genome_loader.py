@@ -29,5 +29,5 @@ def load_genomes(directory_path):
     return genome
 
 if __name__ == "__main__":
-    path_to_genomes = '/cesta_k_genomu/'
+    path_to_genomes = '/cesta/k/fasta/souborům/'
     load_genomes(path_to_genomes)
