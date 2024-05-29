@@ -36,9 +36,9 @@ def run_prokka(fasta_path, output_dir):
 
     result = subprocess.run(prokka_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if result.returncode == 0:
-        logging.info(f"Prokka úspěšně dokončil anotaci pro {fasta_path}")
+        logging.info(f"Prokka úspěšně dokončil anotaci pro {os.path.basename(fasta_path)}")
     else:
-        logging.error(f"Prokka se nepodařilo anotovat {fasta_path}: {result.stderr}")
+        logging.error(f"Prokka se nepodařilo anotovat {os.path.basename(fasta_path)}: {result.stderr}")
 
 def process_fasta(input_dir, output_dir):
     """
