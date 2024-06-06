@@ -24,9 +24,12 @@ BPG-SH is a bioinformatics pipeline designed to construct pan-genomes and analyz
 ## Installation and Setup
 
 1. Install Anaconda or Miniconda.
-2. Create and activate the environment:
+2. Clone the GitHub repository
    ```bash
-   conda env create -f pangenome_env.yml
+   git clone https://github.com/iamaizhan/BPG-SH.git
+   cd BPG-SH
+3. Activate the environment:
+   ```bash
    conda activate pangenome_env
 
 ## Pipeline Steps
